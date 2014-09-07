@@ -14,7 +14,7 @@ public class LoginController
     public static void main(String[] args)
     {
 
-        System.out.println("Welcome to Spring");
+        System.out.println("Welcome to Spring.");
     }
 
 }
