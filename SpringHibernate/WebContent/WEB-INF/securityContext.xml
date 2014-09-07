@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Security related addition. For 4.0.5 the URL patterns have to be added separately in separate http tag -->
+	
+	<http pattern="/login*" security="none"></http>
+	<http pattern="/**/resources/css/**" security="none"></http>
+	<http pattern="/**/resources/js/**" security="none"></http>
+	<http pattern="/**/resources/img/**" security="none"></http>
+	
+	<http auto-config="true" use-expressions="true" >
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<custom-filter ref="ajaxTimeoutRedirectFilter" before="EXCEPTION_TRANSLATION_FILTER"/>
+		
+		<form-login login-page="/login" always-use-default-target="true" default-target-url="/home"  authentication-success-handler-ref="authSuccessHandler" authentication-failure-url="/login" />
+		<logout invalidate-session="true"  logout-success-url="/login" logout-url="/logout"  />
+	</http>
+ 	
+	<authentication-manager alias="authenticationManager" erase-credentials="false">
+		<authentication-provider>
+			<user-service>
+				<user name="baba" password="baba" authorities="ROLE_USER,ROLE_ADMINISTRATOR"/>
+			</user-service>
+		</authentication-provider>
+		<authentication-provider user-service-ref="userValidation"> 
+			<!-- custom encryption -->
+		</authentication-provider>
+	</authentication-manager>
+<beans:bean id="ajaxTimeoutRedirectFilter" class="com.baba.demo.filters.LoginFilter">
+</beans:bean>
+	<beans:bean id="userValidation"
+		class="com.baba.demo.utils.UserSecurityValidation"></beans:bean>
+
+	<beans:bean id="authSuccessHandler" class="com.baba.demo.utils.AuthSuccessHandler"></beans:bean>
+
+	<beans:bean id="authFailureHandler" class="com.baba.demo.utils.AuthFailureHandler"></beans:bean>
+
+	<!-- <beans:bean id="userDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="usersByUsernameQuery"
+			value="SELECT user_id,password,true FROM user WHERE user_id = ?" />
+		<beans:property name="authoritiesByUsernameQuery"
+			value="SELECT user_id,'ROLE_ADMIN' FROM User WHERE user_id = ?" />
+	</beans:bean> -->
+
+</beans:beans>
