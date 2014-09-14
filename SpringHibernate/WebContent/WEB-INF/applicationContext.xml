@@ -39,7 +39,8 @@
 	<!-- The paths to packages where the beans should be scanned -->
 	<!-- ************************************************************ -->
 	<context:component-scan base-package="com.baba.demo.*"  />
-
+	
+	<context:property-placeholder location="classpath:hibernate.properties" />
 
 	<!-- ************************************************************ -->
 	<!-- The paths to packages where the beans should be scanned -->
@@ -80,9 +81,6 @@
 		</property>
 		<property name="packagesToScan" value="com.baba.demo.model"></property>
 	</bean>
-
-	<context:property-placeholder location="classpath:hibernate.properties" />
-
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

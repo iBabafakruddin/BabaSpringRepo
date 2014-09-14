@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +29,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     @Qualifier("authenticationManager")
     protected AuthenticationManager authenticationManager;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+   // Logger logger = Logger.getLogger(this.getClass().getName());
 
     /*
      * (non-Javadoc)
@@ -53,7 +52,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
             }
             catch (Exception e)
             {
-                logger.error("Error while reading User record", e);
+                System.out.println("Error while reading User record"+e);
             }
 
             SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -65,11 +64,11 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
             }
             catch (Exception e)
             {
-                logger.error("Error while setting the Locale", e);
+            	System.out.println("Error while setting the Locale"+ e);
             }
         }
-            response.sendRedirect("./home");
-            //super.onAuthenticationSuccess(request, response, authentication);
+            //response.sendRedirect("./home");
+            super.onAuthenticationSuccess(request, response, authentication);
 
     }
 

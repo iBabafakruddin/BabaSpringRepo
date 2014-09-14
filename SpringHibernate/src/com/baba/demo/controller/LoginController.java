@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController
 {
 
-    @RequestMapping(value={"/","/login"},method=RequestMethod.GET)
+    @RequestMapping(value={"/login"},method=RequestMethod.GET)
    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session,
            @RequestParam(value = "check", required = false) String action)
    {
@@ -53,7 +53,7 @@ public class LoginController
        return mav;
    }
     
-    @RequestMapping(value={"/home"},method=RequestMethod.GET)
+    @RequestMapping(value={"/","/home"},method=RequestMethod.GET)
     public ModelAndView home(HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
         ModelAndView mav = new ModelAndView("home");
