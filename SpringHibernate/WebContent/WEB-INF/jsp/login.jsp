@@ -5,20 +5,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<title>Baba Sprinf Demo App</title>
+<title>Baba</title>
+<link rel='stylesheet' href="${contextPath}/resources/css/bootstrap/bootstrap.min.css" />
 </head>
 
 <body class="login">
 
-<div id="wrapper" class="fullbg_img"> 
-	<div id="header"><div class="logo"></div></div>
-    <form name="frm" method="post"  action="${contextPath}/j_spring_security_check"  >
+<div class="row">
+    <div class="col-md-6 col-md-offset-3"> 
+		 <div class="page-header">
+	        <h1 style="color:green">Welcome</h1>
+	      </div>
+		
+	
+    <form name="frm" style="margin-top:30px;"  method="post"  action="${contextPath}/j_spring_security_check"  >
     			<div class="gray_txt">User Name</div>
             	<div class="mar_b5 login_txtfld"><input id="j_username" name="j_username" type="text" size="50" maxlength="100" title="Enter user Name" /></div>
             	<div class="gray_txt">Password</div>
                 <div class="mar_b5 login_txtfld"><input type="password"  id="j_password" name="j_password" size="50" maxlength="100" title="Eneter Password" /></div>
+                <br />
                 <div class="float_r login_btn">
-     				<input type="submit" value="Login"></input>&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset"></input>
+     				<input type="submit" value="Login" class="btn btn-primary"></input>&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary"></input>
              	</div>
             	<div class="float_l">
             	<c:choose>
@@ -39,6 +46,7 @@
 	            	</c:otherwise>	
             	</c:choose>
     </form>
-
+</div>
+</div>
 </body>
 </html>

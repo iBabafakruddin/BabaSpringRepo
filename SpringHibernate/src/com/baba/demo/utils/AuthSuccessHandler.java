@@ -29,6 +29,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     @Qualifier("authenticationManager")
     protected AuthenticationManager authenticationManager;
 
+    
    // Logger logger = Logger.getLogger(this.getClass().getName());
 
     /*
@@ -41,7 +42,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 
         String userId = request.getParameter("j_username");
         String password = request.getParameter("j_password");
-
+        request.getRequestURI();
         HttpSession session = request.getSession(false);
         if(session!=null)
         {
@@ -57,6 +58,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(authentication);
+            session.setAttribute("user", userId);
             try
             {
                 
@@ -67,8 +69,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
             	System.out.println("Error while setting the Locale"+ e);
             }
         }
-            //response.sendRedirect("./home");
-            super.onAuthenticationSuccess(request, response, authentication);
+        super.onAuthenticationSuccess(request, response, authentication);
 
     }
 
