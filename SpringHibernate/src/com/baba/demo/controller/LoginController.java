@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController
 {
 
-    @RequestMapping(value={"/login"},method=RequestMethod.GET)
+    @RequestMapping(value={"login"},method=RequestMethod.GET)
    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session,
            @RequestParam(value = "check", required = false) String action,
            @RequestParam(value = "attempt", required = false) Integer attempt)
@@ -63,8 +63,12 @@ public class LoginController
         ModelAndView mav = new ModelAndView("home");
         System.out.println(request.getRequestURI());
         System.out.println(request.getContextPath());
+        if((request.getRequestURI().replaceFirst(request.getContextPath(), "").equalsIgnoreCase("/")) ||
+        		(request.getRequestURI().replaceFirst(request.getContextPath(), "").equalsIgnoreCase("/home"))) 
+        return mav;	
+        else
+        	response.sendError(404);
         return mav;
-        
     }
     
 
